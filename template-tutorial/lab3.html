@@ -136,9 +136,9 @@ read all the messages you as a group received.</p>
 <div class="paragraph">
 <p>The output of the helm chart should produce this:</p>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="helm-chart-design.svg" alt="Helm chart design for Group1">
+<img src="_images/helm-chart-design.svg" alt="Helm chart design for Group1">
 </div>
 <div class="title">Figure 1. Helm Chart design for Group1</div>
 </div>
@@ -218,7 +218,7 @@ templating the creation of Kamelet Bindings.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Understand how <em>binary</em> (vs ``normal'') secrets are handled.</p>
+<p>Understand how <em>binary</em> (vs <em>normal</em>) secrets are handled.</p>
 </li>
 <li>
 <p>We are also using
@@ -230,15 +230,18 @@ inevitable in OCP environment.</p>
 <li>
 <p>If you study <code>kamelet-bindings.yaml</code> you will notice it is completely
 generic and supports <em>any</em> two Kamelets and <em>any</em> properties.</p>
-<div class="paragraph">
-<p>+
-This is a very powerful concept as you can use this as a base template
+<div class="ulist">
+<ul>
+<li>
+<p>This is a very powerful concept as you can use this as a base template
 to define integrations for many different systems. However, if this was
 a real-world scenario, this helm chart wouldn’t be so useful without the
 accompanying documentation. The only way how to make the consumption of
 such helm chart easy, is to make sure its consumers can focus on just
 supplying helm values, and not to deal with the underlying templates
 (which are still fairly complex and technical).</p>
+</li>
+</ul>
 </div>
 </li>
 </ul>

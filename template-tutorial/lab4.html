@@ -131,35 +131,43 @@ default violated when using <code>kamel run</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Delete IntegrationKit from <code>userN-dev</code> and <code>userN-prod</code>. <code>`</code> $ kamel
-reset –namespace (deletes everything)</p>
-<div class="paragraph">
-<p>or</p>
-</div>
-<div class="paragraph">
-<p>$ oc delete ik <code>`</code></p>
-</div>
+<p>Delete IntegrationKit from <code>userN-dev</code> and <code>userN-prod</code>.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock lines_space">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel reset –namespace (deletes everything)
+or
+oc delete ik</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Start the example Integration which is provided in the lab directory
 in dev namespace:</p>
+</li>
+</ul>
+</div>
 <div class="listingblock lines_space console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd lab4
 kamel run MutableIntegration.java --namespace userN-dev</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Find out what IntegrationKit is your integration using and note down
-the name of the container image</p>
+the name of the container image :</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>oc get it mutable-integration
-oc get ik</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get it mutable-integration
+oc get ik</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -170,9 +178,9 @@ repeat the procedure.</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>kamel run MutableIntegration.java --namespace userN-prod</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run MutableIntegration.java --namespace userN-prod</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -234,10 +242,8 @@ utilizing <code>kamel promote</code></p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./create-resources.sh</code></pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>This will create all the resources necessary for the Integration. Note that we _must_ precreate these in advance of running `kamel promote` operation in the target (production) namespace as well. In a real scenario these would be populated by the pipeline or via GitOps.</pre>
-</div>
+<div class="paragraph">
+<p>This will create all the resources necessary for the Integration. Note that we <em>must</em> precreate these in advance of running <code>kamel promote</code> operation in the target (production) namespace as well. In a real scenario these would be populated by the pipeline or via GitOps.</p>
 </div>
 <div class="ulist">
 <ul>
