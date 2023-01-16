@@ -293,14 +293,14 @@ values:</p>
 <li>
 <p>Run the <code>ArtemisIntegration.java</code> again, you should see following in
 the logs:</p>
-<div class="literalblock">
-<div class="content">
-<pre>2022-11-29 21:11:47.678  INFO 74446 --- [ - timer://java] ArtemisIntegration.java:14               : Hello Camel from java
-2022-11-29 21:11:48.088  INFO 74446 --- [p-service:5672]] org.apache.qpid.jms.JmsConnection        : Connection ID:53273bd1-8d00-4c64-8988-cecd79b82dd8:8 connected to server: amqp://artemis-amqp-service:5672</pre>
-</div>
-</div>
 </li>
 </ul>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">2022-11-29 21:11:47.678  INFO 74446 --- [ - timer://java] ArtemisIntegration.java:14               : Hello Camel from java
+2022-11-29 21:11:48.088  INFO 74446 --- [p-service:5672]] org.apache.qpid.jms.JmsConnection        : Connection ID:53273bd1-8d00-4c64-8988-cecd79b82dd8:8 connected to server: amqp://artemis-amqp-service:5672</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -315,7 +315,7 @@ integrations locally which can be useful in early stages of development.</p>
 <p>If your integration depends on 3rd party services (be it AMQ Broker,
 Kafka cluster, etc) you could mock those locally by using <code>podman</code> or
 <code>docker</code>. Engineering is working to improve the local development
-experience, especially the ``mocking'' part.</p>
+experience, especially the mocking part.</p>
 </li>
 <li>
 <p><code>Kamelets</code> can be extremely useful if you want to hide complexity of
