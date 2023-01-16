@@ -187,9 +187,9 @@ alter these two attributes as well:</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>oc apply -f custom-sink-kamelet.yaml</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f custom-sink-kamelet.yaml</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -230,9 +230,9 @@ cluster (hence kamel cli) :</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>kamel run ArtemisIntegration.java</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run ArtemisIntegration.java</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -240,13 +240,13 @@ cluster (hence kamel cli) :</p>
 <li>
 <p>If everything went well, you should similar output in the logs in the
 started pod in your namespace:</p>
-<div class="literalblock">
-<div class="content">
-<pre>2022-12-01 21:29:52,693 INFO  [org.apa.qpi.jms.JmsConnection] (AmqpProvider :(1556):[amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672]) Connection ID:ef32e5da-b4a2-4172-bae8-50b0c03b216a:1556 connected to server: amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</pre>
-</div>
-</div>
 </li>
 </ul>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">2022-12-01 21:29:52,693 INFO  [org.apa.qpi.jms.JmsConnection] (AmqpProvider :(1556):[amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672]) Connection ID:ef32e5da-b4a2-4172-bae8-50b0c03b216a:1556 connected to server: amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>2. Add one-way ssl</strong></p>
@@ -341,16 +341,15 @@ oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
 <ul>
 <li>
 <p><code>kamel</code> binary allows us to reference a secret and mount it to a
-specified location - mount it somewhere under <code>/etc</code></p>
-<div class="literalblock">
-<div class="content">
-<pre>--resource secret:secretName@/where/you/want/to/mount/it
-
-See [documentation](https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html) for more details.</pre>
-</div>
-</div>
+specified location - mount it somewhere under <code>/etc</code>, i.e.:</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><code>--resource secret:secretName@/where/you/want/to/mount/it</code></p>
+</div>
+<div class="paragraph">
+<p>See [documentation](<a href="https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html" class="bare">https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html</a>) for more details.</p>
 </div>
 <div class="paragraph">
 <p>Update your <code>ArtemisIntegration.java</code>: - URI scheme is now <code>amqps</code> (as
