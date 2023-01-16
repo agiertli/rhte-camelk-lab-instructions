@@ -102,13 +102,17 @@ camel, quarkus and targets Cloud (kubernetes, OpenShift) as its target
 runtime. - comes with <code>kamel</code> cli tool which enables developer to deploy
 integration onto cloud. By default, <code>kamel</code> requires cloud access.</p>
 </div>
-<div class="paragraph">
-<p><strong>But what if you are in early stages of development and you just want to
-test your integration locally?</strong></p>
+<div class="quoteblock">
+<blockquote>
+But what if you are in early stages of development and you just want to
+test your integration locally?
+</blockquote>
 </div>
-<div class="paragraph">
-<p><strong>What if the components you want to integrate with, are not yet
-available in the cloud platform?</strong></p>
+<div class="quoteblock">
+<blockquote>
+What if the components you want to integrate with, are not yet
+available in the cloud platform?
+</blockquote>
 </div>
 <div class="paragraph">
 <p>There are two options how to start developing camel-k integration
@@ -160,22 +164,30 @@ development experience looks like:</strong></p>
 <li>
 <p>Create a <code>ArtemisIntegration.java</code> camel Route using <code>camel</code> cli and
 run it</p>
-<div class="literalblock">
-<div class="content">
-<pre>$ camel init ArtemisIntegration.java
-$ camel run ArtemisIntegration.java</pre>
-</div>
-</div>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">camel init ArtemisIntegration.java</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">camel run ArtemisIntegration.java</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>You should see similar output in the console log</p>
+</li>
+</ul>
+</div>
 <div class="literalblock">
 <div class="content">
 <pre>2022-11-29 20:37:28.693  INFO 72000 --- [ - timer://java] ArtemisIntegration.java:14               : Hello Camel from java</pre>
 </div>
-</div>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Throughout this lab, we will be developing a very <strong>simple integration
