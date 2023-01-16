@@ -143,30 +143,40 @@ reset –namespace (deletes everything)</p>
 <li>
 <p>Start the example Integration which is provided in the lab directory
 in dev namespace:</p>
-<div class="literalblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>$ cd lab4
-
-$ kamel run MutableIntegration.java --namespace userN-dev
-
-You should see a similar result to:
-Unable to verify existence of operator id [camel-k] due to lack of user privileges
-Integration "mutable-integration" created</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd lab4
+kamel run MutableIntegration.java --namespace userN-dev</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Find out what IntegrationKit is your integration using and note down
-the name of the container image <code>`</code> $ oc get it mutable-integration</p>
-<div class="paragraph">
-<p>$ oc get ik <code>`</code></p>
-</div>
+the name of the container image</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get it mutable-integration
+oc get ik</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Manually deploy the integration into the production namespace and
-repeat the procedure.
-<code>$ kamel run MutableIntegration.java --namespace userN-prod</code></p>
+repeat the procedure.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kamel run MutableIntegration.java --namespace userN-prod</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Are the container images in <strong>dev</strong> and <strong>prod</strong> the <strong>same or not?</strong></p>
 </li>
@@ -217,12 +227,16 @@ utilizing <code>kamel promote</code></p>
 <p><code>In a real world pipeline there would be some integration and smoke tests as well, but this is beyond the scope of this lab.</code></p>
 </div>
 <div class="paragraph">
-<p>Complete Lab4: - Examine <code>create-resources.sh</code> script,
-<code>change it as needed</code> and <code>run it</code> <code>$ ./create-resources.sh</code></p>
+<p>Complete Lab4: - Examine <code>create-resources.sh</code> script, change it as needed and run it</p>
+</div>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./create-resources.sh</code></pre>
+</div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>  This will create all the resources necessary for the Integration. Note that we _must_ precreate these in advance of running `kamel promote` operation in the target (production) namespace as well. In a real scenario these would be populated by the pipeline or via GitOps.</pre>
+<pre>This will create all the resources necessary for the Integration. Note that we _must_ precreate these in advance of running `kamel promote` operation in the target (production) namespace as well. In a real scenario these would be populated by the pipeline or via GitOps.</pre>
 </div>
 </div>
 <div class="ulist">
@@ -255,12 +269,18 @@ Resources</a> if you need help.</p>
 </li>
 <li>
 <p>Apply <code>pipeline.yaml</code> and <code>pipeline-run.yaml</code> onto your OCP cluster.
-You can inspect the Tekton pipelines also via OpenShift console <code>`</code> $ oc
-apply -f pipeline.yaml -n userN-dev</p>
-<div class="paragraph">
-<p>$ oc apply -f pipeline-run.yaml -n userN-dev <code>`</code></p>
-</div>
+You can inspect the Tekton pipelines also via OpenShift console</p>
 </li>
+</ul>
+</div>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f pipeline.yaml -n userN-dev
+oc apply -f pipeline-run.yaml -n userN-dev</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Troubleshoot any potential issues and verify whether the container
 images are the same for both, dev and prod integration</p>

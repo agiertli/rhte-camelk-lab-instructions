@@ -123,14 +123,32 @@ context to <code>userN-dev</code> openshift project.</p>
 </li>
 <li>
 <p>Cleanup leftovers from the previous lab - edit <code>cleanup.sh</code> and
-execute it <code>$ cd labs/lab5     $ ./utils/cleanup.sh</code></p>
+execute it</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cd labs/lab5
+./utils/cleanup.sh</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Generate Sealed secrets through a prepared script.
-<code>$ ./utils/create-secrets.sh</code></p>
+<p>Generate Sealed secrets through a prepared script.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./utils/create-secrets.sh</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Move the generated yaml files to <code>labs/lab5/secrets/dev</code> folder.</p>
+<p><em>Move</em> the generated yaml files to <code>labs/lab5/secrets/dev</code> folder.</p>
 </li>
 <li>
 <p>Change context to <code>userN-prod</code> openshift project and execute the same
@@ -156,9 +174,9 @@ is owned by the SealedSecrets controller.</p>
 <p>Each user has 4 different Argo applications created for them, you can
 find more about these:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre>$ oc get application -n openshift-gitops | grep userN-</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get application -n openshift-gitops | grep userN-</code></pre>
 </div>
 </div>
 <div class="paragraph">
