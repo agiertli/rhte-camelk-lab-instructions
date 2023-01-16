@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: Red Hat Tech Exchange 2023</title>
-    <link rel="canonical" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html/template-tutorial/lab3.html">
+    <link rel="canonical" href="https://agiertli.github.io/rhte-camelk-lab-instructions/template-tutorial/index.html/template-tutorial/lab3.html">
     <link rel="prev" href="lab2.html">
     <link rel="next" href="lab4.html">
     <meta name="generator" content="Antora 3.0.0">
@@ -15,7 +15,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
-      <a class="navbar-item" style="font-size: 24px; color: white" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html">Red Hat Tech Exchange 2023</a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://agiertli.github.io/rhte-camelk-lab-instructions/template-tutorial/index.html">Red Hat Tech Exchange 2023</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
         <span></span>
@@ -252,9 +252,12 @@ $ ./install.sh</pre>
 <div class="paragraph">
 <p>The result should look similar to this:</p>
 </div>
-<div class="literalblock">
+</li>
+</ul>
+</div>
+<div class="listingblock console-output">
 <div class="content">
-<pre>$ oc get klb -n userN-dev
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get klb -n userN-dev
 NAME                           PHASE   REPLICAS
 rhte-camelk.group1.to.group2   Ready   1
 rhte-camelk.group1.to.group3   Ready   1
@@ -262,7 +265,7 @@ rhte-camelk.group1.to.group4   Ready   1
 rhte-camelk.group1.to.group5   Ready   1
 rhte-camelk.group1.to.group6   Ready   1
 rhte-camelk.group1.to.group7   Ready   1
-rhte-camelk.group1.to.log      Ready   1</pre>
+rhte-camelk.group1.to.log      Ready   1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -270,9 +273,6 @@ rhte-camelk.group1.to.log      Ready   1</pre>
 number of actual groups present in the lab. Don’t forget to check the
 integration logs to make sure there are no errors. You can use
 `kamel get</code> and <code>kamel log</code>, or plain <code>oc</code>.</p>
-</div>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
