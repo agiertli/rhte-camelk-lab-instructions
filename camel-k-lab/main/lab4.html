@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Red Hat Tech Exchange 2023</title>
+    <link rel="canonical" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html/camel-k-lab/main/lab4.html">
+    <link rel="prev" href="lab3.html">
+    <link rel="next" href="lab5.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html">Red Hat Tech Exchange 2023</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="camel-k-lab" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-setup.html">0. Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab1.html">1. Lab 1 - Local Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab2.html">2. Lab 2 - Customizing Kamelets</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab3.html">3. Lab 3 - KameletBinding evolution</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="lab4.html">4. Lab 4 - Traditional CI/CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab5.html">5. Lab 5 - GitOps styled Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Camel-K Beyond Demo</a></li>
+    <li><a href="lab4.html">4. Lab 4 - Traditional CI/CD</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/agiertli/rhte-camelk-lab-instructions/edit/main/documentation/modules/ROOT/pages/lab4.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_lab_4_traditional_cicd"><a class="anchor" href="#_lab_4_traditional_cicd"></a>Lab 4 - Traditional CI/CD</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_intro"><a class="anchor" href="#_intro"></a>Intro</h3>
+<div class="paragraph">
+<p>There are multiple challenges when it comes to CI/CD of the camel-k
+based projects.</p>
+</div>
+<div class="paragraph">
+<p>You will likely find out at your customers that their traditional CI/CD
+implementations will not be suitable to build, test and promote the
+camel-k integration.</p>
+</div>
+<div class="paragraph">
+<p>Another challenge is less subtle and will only surface when you start
+looking under the hood of the integration lifecycle:</p>
+</div>
+<div class="paragraph">
+<p><strong>How do you ensure that the camel-k integration in dev and prod will be
+based on the <em>same</em> container image?</strong></p>
+</div>
+<div class="paragraph">
+<p>This has been historically very hard to achieve and it changed only
+recently with the arrival of the <code>kamel promote</code> feature which we are
+going to explore in Lab 4.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tasks"><a class="anchor" href="#_tasks"></a>Tasks</h3>
+<div class="paragraph">
+<p><strong>1. Investigate immutability principles</strong></p>
+</div>
+<div class="paragraph">
+<p>We’ll start by inspecting the immutability principles which are by
+default violated when using <code>kamel run</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Delete IntegrationKit from <code>userN-dev</code> and <code>userN-prod</code>. <code>`</code> $ kamel
+reset –namespace (deletes everything)</p>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="paragraph">
+<p>$ oc delete ik <code>`</code></p>
+</div>
+</li>
+<li>
+<p>Start the example Integration which is provided in the lab directory
+in dev namespace:</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ cd lab4
+
+$ kamel run MutableIntegration.java --namespace userN-dev
+
+You should see a similar result to:
+Unable to verify existence of operator id [camel-k] due to lack of user privileges
+Integration "mutable-integration" created</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Find out what IntegrationKit is your integration using and note down
+the name of the container image <code>`</code> $ oc get it mutable-integration</p>
+<div class="paragraph">
+<p>$ oc get ik <code>`</code></p>
+</div>
+</li>
+<li>
+<p>Manually deploy the integration into the production namespace and
+repeat the procedure.
+<code>$ kamel run MutableIntegration.java --namespace userN-prod</code></p>
+</li>
+<li>
+<p>Are the container images in <strong>dev</strong> and <strong>prod</strong> the <strong>same or not?</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let’s examine what happened:</p>
+</div>
+<div class="paragraph">
+<p>We are running two separate <code>Namespace-scoped</code> installations of camel-k
+operator, which are completely independent.</p>
+</div>
+<div class="paragraph">
+<p>By default, there is no way for the camel-k operator to know it should
+re-use the existing <code>IntegrationKit</code> (or its container image), so it
+will initiate a completely new build, thus violating immutability
+principles.</p>
+</div>
+<div class="paragraph">
+<p>If you’d be running a global operator installation, this <em>could</em>
+potentially work - but if you delete the IntegrationKit in between the
+integration promotion you would arrive at the same outcome. And the same
+outcome would happen if you’d be doing integration promotion across
+clusters.</p>
+</div>
+<div class="paragraph">
+<p><strong>2. Fix immutability</strong></p>
+</div>
+<div class="paragraph">
+<p>Now let’s see how we can use <code>kamel promote</code> to overcome this problem.</p>
+</div>
+<div class="paragraph">
+<p>Most of the resources are already provided for you, you just need to
+fill in the blanks.</p>
+</div>
+<div class="paragraph">
+<p>We have prepared a <code>Tekton pipeline</code> for you which: - fetches the gitea
+repo - runs the camel-k integration - promotes it to production by
+utilizing <code>kamel promote</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/tekton.png" alt="Tekton Pipeline">
+</div>
+<div class="title">Figure 1. Tekton Pipeline</div>
+</div>
+<div class="paragraph">
+<p><code>In a real world pipeline there would be some integration and smoke tests as well, but this is beyond the scope of this lab.</code></p>
+</div>
+<div class="paragraph">
+<p>Complete Lab4: - Examine <code>create-resources.sh</code> script,
+<code>change it as needed</code> and <code>run it</code> <code>$ ./create-resources.sh</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>  This will create all the resources necessary for the Integration. Note that we _must_ precreate these in advance of running `kamel promote` operation in the target (production) namespace as well. In a real scenario these would be populated by the pipeline or via GitOps.</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inspect <code>pipeline.yaml</code> and understand what it does.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix the parameters of <code>kamel run task</code> (line 331-337).</p>
+<div class="paragraph">
+<p>You need to config and mount all the required secrets and config maps.</p>
+</div>
+<div class="paragraph">
+<p>Refer to
+<a href="https://camel.apache.org/camel-k/1.10.x/configuration/runtime-config.html">Runtime
+Configuration</a> and
+<a href="https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html">Runtime
+Resources</a> if you need help.</p>
+</div>
+</li>
+<li>
+<p>Fix parameters of <code>kamel promote task</code> (line 346-352)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Inspect <code>pipeline-run.yaml</code> and fix the git repo url at line 28</p>
+</li>
+<li>
+<p>Apply <code>pipeline.yaml</code> and <code>pipeline-run.yaml</code> onto your OCP cluster.
+You can inspect the Tekton pipelines also via OpenShift console <code>`</code> $ oc
+apply -f pipeline.yaml -n userN-dev</p>
+<div class="paragraph">
+<p>$ oc apply -f pipeline-run.yaml -n userN-dev <code>`</code></p>
+</div>
+</li>
+<li>
+<p>Troubleshoot any potential issues and verify whether the container
+images are the same for both, dev and prod integration</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h3>
+<div class="paragraph">
+<p><code>kamel promote</code> simplifies the promotion of the camel-k integrations to
+higher environments.</p>
+</div>
+<div class="paragraph">
+<p>It ensures immutability principles by reusing the same container images
+between different environments. It also simplifies the configuration -
+it’s smart enough to understand what configuration (config maps,
+secrets) were part of the source integration so we don’t have to
+explicitly state it anymore when promoting to higher environment.</p>
+</div>
+<div class="paragraph">
+<p>What it lacks is the better integration with GitOps styled deployments.
+The <a href="https://github.com/apache/camel-k/issues/3888">issue</a> has been raised
+to improve this behaviour.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="lab3.html">3. Lab 3 - KameletBinding evolution</a></span>
+  <span class="next"><a href="lab5.html">5. Lab 5 - GitOps styled Continuous Delivery</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

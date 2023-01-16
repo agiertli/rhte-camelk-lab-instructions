@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Red Hat Tech Exchange 2023</title>
+    <link rel="canonical" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html/camel-k-lab/main/lab2.html">
+    <link rel="prev" href="lab1.html">
+    <link rel="next" href="lab3.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://agiertli.github.io/rhte-camelk-lab-instructions/tutorial/index.html">Red Hat Tech Exchange 2023</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="camel-k-lab" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-setup.html">0. Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab1.html">1. Lab 1 - Local Development</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="lab2.html">2. Lab 2 - Customizing Kamelets</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab3.html">3. Lab 3 - KameletBinding evolution</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab4.html">4. Lab 4 - Traditional CI/CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab5.html">5. Lab 5 - GitOps styled Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Camel-K Beyond Demo</a></li>
+    <li><a href="lab2.html">2. Lab 2 - Customizing Kamelets</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/agiertli/rhte-camelk-lab-instructions/edit/main/documentation/modules/ROOT/pages/lab2.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_lab_2_customizing_kamelets"><a class="anchor" href="#_lab_2_customizing_kamelets"></a>Lab 2 - Customizing Kamelets</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_intro"><a class="anchor" href="#_intro"></a>Intro</h3>
+<div class="paragraph">
+<p>Red Hat ships many kamelets with the camel-k operator out of the box:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$  oc project userX-dev
+$  oc get kamelet | wc -l
+      202</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Kamelets</code> are <strong>not as flexible</strong> as the camel components which they are
+based on. If the underlying camel component supports hundreds of
+parameters, the corresponding kamelet only expose a couple, chances are,
+the out of the box kamelet will not be directly useful at your customer
+or for your use case.</p>
+</div>
+<div class="paragraph">
+<p>People often don’t realize that <code>kamelet</code> can, and even should be,
+<strong>extended and customized</strong>. This is how you can ge the best experience
+out of using them - by tailoring them precisely for your particular use
+case. And <strong>this is what we are going to do in the Lab 2.</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Kamelets</code> can be <code>Sources</code> or <code>Sinks</code> and are connected throught
+<code>KameletBindings</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/kamelets.png" alt="Kamelets Architecture">
+</div>
+<div class="title">Figure 1. Kamelets Architecture</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_task"><a class="anchor" href="#_task"></a>Task</h3>
+<div class="paragraph">
+<p>Most times the integration with any Artemis broker needs <strong>authenticated
+users and one-way ssl enforced</strong>. - <strong>The out of the box kamelet doesn’t
+support neither authentication nor ssl</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>1. Support basic authentication against Artemis broker</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inspect the out of the box kamelet to understand its internal
+mechanics:</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ oc project userN-dev
+
+$ cd basic-auth
+
+$ oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inspect the
+<a href="https://github.com/apache/qpid-jms/blob/main/qpid-jms-client/src/main/java/org/apache/qpid/jms/JmsConnectionFactory.java">ConnectionFactory
+constructor</a> and see whether there is a constructor suitable for our
+purposes. Consider adding new <code>username</code> and <code>password</code> kamelet
+properties and also new ConnectionFactory constructor parameters</p>
+</li>
+<li>
+<p>camel-k will cleverly <code>`guess'' which ConnectionFactory constructor to
+call based on the number and types of the parameters. `Order matters(!)</code></p>
+</li>
+<li>
+<p>After applying the changes to the kamelet yaml file, make sure to
+alter these two attributes as well:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>namespace: userN-dev</code></p>
+</li>
+<li>
+<p><code>name: custom-jms-amqp-10-sink</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Apply the custom kamelet in your namespace, i.e.
+<code>$ oc apply -f custom-sink-kamelet.yaml</code></p>
+</li>
+<li>
+<p>Test your kamelet by changing <code>ArtemisIntegration.java</code> to connect to
+the Artemis Broker running on OCP</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You can find out the Broker service url like this:
+<code>$ oc get svc -n tooling | grep artemis-no-ssl</code></p>
+</li>
+<li>
+<p>TIP: Correct syntax to call services outside of current namespace is
+<code>&lt;service&gt;.&lt;pod_namespace&gt;.svc.cluster.local</code></p>
+</li>
+<li>
+<p>Use following credentials to connect, simply pass them as kamelet
+endpoint parameters:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>username: admin</code></p>
+</li>
+<li>
+<p><code>password: password1!</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run the integration - notice, we are now running the integration on a
+cluster (hence kamel cli) <code>$ kamel run ArtemisIntegration.java</code></p>
+</li>
+<li>
+<p>If everything went well, you should similar output in the logs in the
+started pod in your namespace:</p>
+<div class="literalblock">
+<div class="content">
+<pre>2022-12-01 21:29:52,693 INFO  [org.apa.qpi.jms.JmsConnection] (AmqpProvider :(1556):[amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672]) Connection ID:ef32e5da-b4a2-4172-bae8-50b0c03b216a:1556 connected to server: amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>2. Add one-way ssl</strong></p>
+</div>
+<div class="paragraph">
+<p>When you check the <code>dependencies</code> section of the <code>jms-amqp-10-sink</code>
+kamelet, you will notice that it’s based on the QPID client. QPID allows
+to specify most of the client properties directly inside the Connection
+URI, see
+<a href="https://qpid.apache.org/releases/qpid-jms-1.7.0/docs/index.html">official
+documentation</a> for more details. At the very least, we need to supply
+the URL as follows:</p>
+</div>
+<div class="paragraph">
+<p><code>amqps://host:port?transport.trustStoreLocation=/path/to/client/truststore&amp;transport.trustStorePassword=truststorePassword!&amp;transport.verifyHost=false</code></p>
+</div>
+<div class="paragraph">
+<p>Unfortunately it’s not so straightforward to pass this value in a
+camel-k integration. Any query parameter inside remoteURI will be
+treated as a kamelet property (and not a remoteURI query parameter).</p>
+</div>
+<div class="paragraph">
+<p>In our case it would mean that <code>truststorePassword</code> would not be passed
+to the underlying ConnectionFactory (you are free to try this out;)).</p>
+</div>
+<div class="paragraph">
+<p><strong>Potential solution</strong> could be to use
+<a href="https://camel.apache.org/manual/faq/how-do-i-configure-endpoints.html">RAW</a>
+feature of Camel and pass our remoteURI value as RAW(remoteURI).
+Unfortunately RAW
+<a href="https://github.com/apache/camel-kamelets/issues/1200">doesn’t seem to
+work</a> in the camel-k 1.8 operator version.</p>
+</div>
+<div class="paragraph">
+<p>So we need to get a bit more creative…:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add three more Kamelet parameters:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>verifyHost (type: string, default:false)</p>
+</li>
+<li>
+<p>trustStoreLocation (type:string)</p>
+</li>
+<li>
+<p>trustStorePassword (type:string)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change the way <code>remoteURI</code> is defined in Kamelet definition:
+<code>- key: remoteURI     value: '{{remoteURI}}?transport.trustStoreLocation={{trustStoreLocation}}&amp;transport.trustStorePassword={{trustStorePassword}}&amp;transport.verifyHost={{verifyHost}}'</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By defining the remoteURI query parameters directly in the Kamelet
+definition, we will bypass camel property parser which was causing the
+<code>trustStorePassword</code> param to ``be lost''.</p>
+</div>
+<div class="paragraph">
+<p>Do not forget you need to <strong>inject a client truststore</strong> into the
+integration pod:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>See file <code>client.ts</code> in your user git repository.<br></p>
+</li>
+<li>
+<p>Create a secret based on the contents of this file.</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ cd ssl
+
+$ oc create secret generic my-artemis-secret --from-file=client.ts</pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>kamel</code> binary allows us to reference a secret and mount it to a
+specified location - mount it somewhere under <code>/etc</code></p>
+<div class="literalblock">
+<div class="content">
+<pre>--resource secret:secretName@/where/you/want/to/mount/it
+
+See [documentation](https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html) for more details.</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Update your <code>ArtemisIntegration.java</code>: - URI scheme is now <code>amqps</code> (as
+opposed amqp) - Get the new <em>ssl</em> service name from <code>tooling</code> namespace
+- beware, the port is also different! - trustStorePassword is
+<code>password1!</code> - trustStoreLocation should match whatever you passed via
+<code>kamel run --resource ..</code></p>
+</div>
+<div class="paragraph">
+<p>Run your integration:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ kamel run --resource secret:my-artemis-secret@/etc/ssl/jms-sink ArtemisIntegration.java</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h3>
+<div class="paragraph">
+<p>In this lab we focused on customizing the Kamelets. This is a
+fundamental feature of the Kamelets and it allows you to unlock the full
+potential of them. More often than not you will encounter requirements
+at your own customers which will make out of the box Kamelets not
+suitable. You can either raise an RFE and wait months for it to be
+delivered or fix it yourself - and now you should know how.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="lab1.html">1. Lab 1 - Local Development</a></span>
+  <span class="next"><a href="lab3.html">3. Lab 3 - KameletBinding evolution</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
