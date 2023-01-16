@@ -93,34 +93,43 @@
 <article class="doc">
 <h1 class="page">Lab Environment</h1>
 <div class="paragraph">
-<p>The lab setup is backed by ArgoCD - there is single parent app in the <code>tooling</code> namespace which deploys following services:</p>
+<p>The lab setup is backed by ArgoCD, below is high level overview of how it&#8217;s setup.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/argo-overview.png" alt="High level argo overview">
+</div>
+</div>
+<div class="paragraph">
+<p>Most of the operators and utilities are installed in the <code>tooling</code> namespace to which every user has read access.  Here comes the list of all the useful information you need to know:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>AMQ 7</p>
+<p>OpenShift username/password: <code>user</code> / <code>password</code></p>
 </li>
 <li>
-<p>camelk</p>
+<p>AMQ 7 username/password: <code>admin</code> / <code>password1!</code></p>
 </li>
 <li>
-<p>gitea</p>
+<p>AMQ 7 client truststore password: <code>password1!</code></p>
 </li>
 <li>
-<p>nexus</p>
+<p>AMQ 7 non-ssl connection url: <code>amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</code></p>
 </li>
 <li>
-<p>sealed secrets</p>
+<p>AMQ 7 ssl connection url:  <code>amqps://rhte-artemis-one-way-ssl-0-svc.tooling.svc.cluster.local:5673</code></p>
+</li>
+<li>
+<p>Dev Spaces URL: <code>oc get route &lt;TODO&gt; -n tooling</code></p>
+</li>
+<li>
+<p>Gitea URL: <code>oc get route &lt;TODO&gt; -n tooling</code></p>
+</li>
+<li>
+<p>ArgoCD url: <code>oc get route &lt;TODO&gt; -n openshift-gitops</code></p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>You, as a user, have <em>view</em> access to <code>tooling</code> namespace, which allows you to get all the information - such as connection URLs for AMQ, camel-k operator logs for troubleshooting, etc.</p>
-</div>
-<div class="paragraph">
-<p>Final Argo Application, called <code>namespaces</code> configures user namespaces and permission. Each user (or team) have following namespaces created with admin permissions:
- - userN-dev
- - userN-prod</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Template Tutorial</a></span>
