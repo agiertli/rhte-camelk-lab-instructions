@@ -99,11 +99,11 @@
 <div class="paragraph">
 <p>Red Hat ships many kamelets with the camel-k operator out of the box:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock console-output">
 <div class="content">
-<pre>$  oc project userX-dev
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$  oc project userX-dev
 $  oc get kamelet | wc -l
-      202</pre>
+      202</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -148,11 +148,11 @@ mechanics:</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project userN-dev
-$ cd basic-auth
-$ oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev
+cd basic-auth
+oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -302,10 +302,15 @@ work</a> in the camel-k 1.8 operator version.</p>
 </div>
 </li>
 <li>
-<p>Change the way <code>remoteURI</code> is defined in Kamelet definition:
-<code>- key: remoteURI     value: '{{remoteURI}}?transport.trustStoreLocation={{trustStoreLocation}}&amp;transport.trustStorePassword={{trustStorePassword}}&amp;transport.verifyHost={{verifyHost}}'</code></p>
+<p>Change the way <code>remoteURI</code> is defined in Kamelet definition:</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">   - key: remoteURI
+   value: '{{remoteURI}}?transport.trustStoreLocation={{trustStoreLocation}}&amp;transport.trustStorePassword={{trustStorePassword}}&amp;transport.verifyHost={{verifyHost}}'</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>By defining the remoteURI query parameters directly in the Kamelet
@@ -326,14 +331,10 @@ integration pod:</p>
 </li>
 </ul>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>$ cd ssl</pre>
-</div>
-</div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ssl
+oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
 </div>
 </div>
 <div class="ulist">
