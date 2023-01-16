@@ -145,16 +145,18 @@ support neither authentication nor ssl</strong></p>
 <li>
 <p>Inspect the out of the box kamelet to understand its internal
 mechanics:</p>
-<div class="literalblock">
-<div class="content">
-<pre>$ oc project userN-dev
-
-$ cd basic-auth
-
-$ oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</pre>
-</div>
-</div>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc project userN-dev
+$ cd basic-auth
+$ oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Inspect the
 <a href="https://github.com/apache/qpid-jms/blob/main/qpid-jms-client/src/main/java/org/apache/qpid/jms/JmsConnectionFactory.java">ConnectionFactory
@@ -181,9 +183,17 @@ alter these two attributes as well:</p>
 </div>
 </li>
 <li>
-<p>Apply the custom kamelet in your namespace, i.e.
-<code>$ oc apply -f custom-sink-kamelet.yaml</code></p>
+<p>Apply the custom kamelet in your namespace, i.e.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc apply -f custom-sink-kamelet.yaml</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Test your kamelet by changing <code>ArtemisIntegration.java</code> to connect to
 the Artemis Broker running on OCP</p>
@@ -216,8 +226,17 @@ endpoint parameters:</p>
 </li>
 <li>
 <p>Run the integration - notice, we are now running the integration on a
-cluster (hence kamel cli) <code>$ kamel run ArtemisIntegration.java</code></p>
+cluster (hence kamel cli) :</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kamel run ArtemisIntegration.java</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>If everything went well, you should similar output in the logs in the
 started pod in your namespace:</p>
@@ -304,14 +323,21 @@ integration pod:</p>
 </li>
 <li>
 <p>Create a secret based on the contents of this file.</p>
+</li>
+</ul>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>$ cd ssl
-
-$ oc create secret generic my-artemis-secret --from-file=client.ts</pre>
+<pre>$ cd ssl</pre>
 </div>
 </div>
-</li>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p><code>kamel</code> binary allows us to reference a secret and mount it to a
 specified location - mount it somewhere under <code>/etc</code></p>
@@ -335,9 +361,9 @@ opposed amqp) - Get the new <em>ssl</em> service name from <code>tooling</code> 
 <div class="paragraph">
 <p>Run your integration:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre>$ kamel run --resource secret:my-artemis-secret@/etc/ssl/jms-sink ArtemisIntegration.java</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --resource secret:my-artemis-secret@/etc/ssl/jms-sink ArtemisIntegration.java</code></pre>
 </div>
 </div>
 </div>
