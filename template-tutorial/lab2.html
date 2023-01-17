@@ -197,32 +197,9 @@ alter these two attributes as well:</p>
 <li>
 <p>Test your kamelet by changing <code>ArtemisIntegration.java</code> to connect to
 the Artemis Broker running on OCP</p>
-<div class="ulist">
-<ul>
-<li>
-<p>You can find out the Broker service url like this:
-<code>$ oc get svc -n tooling | grep artemis-no-ssl</code></p>
 </li>
 <li>
-<p>TIP: Correct syntax to call services outside of current namespace is
-<code>&lt;service&gt;.&lt;pod_namespace&gt;.svc.cluster.local</code></p>
-</li>
-<li>
-<p>Use following credentials to connect, simply pass them as kamelet
-endpoint parameters:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>username: admin</code></p>
-</li>
-<li>
-<p><code>password: password1!</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
+<p>You can find the Broker URL, username, password in <a href="01-setup.html" class="xref page">Setup chapter</a></p>
 </li>
 <li>
 <p>Run the integration - notice, we are now running the integration on a
@@ -281,12 +258,8 @@ Unfortunately RAW
 work</a> in the camel-k 1.8 operator version.</p>
 </div>
 <div class="paragraph">
-<p>So we need to get a bit more creative…:</p>
+<p>So we need to get a bit more creative. Open the kamelet yaml again and add three more Kamelet parameters:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add three more Kamelet parameters:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -298,27 +271,24 @@ work</a> in the camel-k 1.8 operator version.</p>
 <li>
 <p>trustStorePassword (type:string)</p>
 </li>
-</ul>
-</div>
-</li>
 <li>
 <p>Change the way <code>remoteURI</code> is defined in Kamelet definition:</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">   - key: remoteURI
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">   - key: remoteURI
    value: '{{remoteURI}}?transport.trustStoreLocation={{trustStoreLocation}}&amp;transport.trustStorePassword={{trustStorePassword}}&amp;transport.verifyHost={{verifyHost}}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>By defining the remoteURI query parameters directly in the Kamelet
 definition, we will bypass camel property parser which was causing the
-<code>trustStorePassword</code> param to ``be lost''.</p>
+<code>trustStorePassword</code> param to be lost. After you are done, don&#8217;t forget to <code>oc apply -f</code> your kamelet changes to the cluster.</p>
 </div>
 <div class="paragraph">
-<p>Do not forget you need to <strong>inject a client truststore</strong> into the
+<p>Next we need to <strong>inject a client truststore</strong> into the
 integration pod:</p>
 </div>
 <div class="ulist">
@@ -331,7 +301,7 @@ integration pod:</p>
 </li>
 </ul>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock lines_space console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ssl
 oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
@@ -361,7 +331,7 @@ opposed amqp) - Get the new <em>ssl</em> service name from <code>tooling</code> 
 <div class="paragraph">
 <p>Run your integration:</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock lines_space console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --resource secret:my-artemis-secret@/etc/ssl/jms-sink ArtemisIntegration.java</code></pre>
 </div>
