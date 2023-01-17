@@ -283,9 +283,7 @@ work</a> in the camel-k 1.8 operator version.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>By defining the remoteURI query parameters directly in the Kamelet
-definition, we will bypass camel property parser which was causing the
-<code>trustStorePassword</code> param to be lost. After you are done, don&#8217;t forget to <code>oc apply -f</code> your kamelet changes to the cluster.</p>
+<p>By defining the remoteURI query parameters directly in the Kamelet definition, we will bypass camel property parser which was causing the <code>trustStorePassword</code> param to be lost. After you are done, don&#8217;t forget to <code>oc apply -f</code> your kamelet changes to the cluster.</p>
 </div>
 <div class="paragraph">
 <p>Next we need to <strong>inject a client truststore</strong> into the integration pod:</p>
@@ -303,7 +301,7 @@ definition, we will bypass camel property parser which was causing the
 <div class="listingblock lines_space console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ssl
-oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
+oc create secret generic client-truststore --from-file=client.ts</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -323,18 +321,41 @@ specified location - mount it somewhere under <code>/etc</code>, i.e.:</p>
 <p>See <a href="https://camel.apache.org/camel-k/1.10.x/configuration/runtime-resources.html">camel-k documentation</a> for more details.</p>
 </div>
 <div class="paragraph">
-<p>Update your <code>ArtemisIntegration.java</code>: - URI scheme is now <code>amqps</code> (as
-opposed amqp) - Get the new <em>ssl</em> service name from <code>tooling</code> namespace
-- beware, the port is also different! - trustStorePassword is
-<code>password1!</code> - trustStoreLocation should match whatever you passed via
-<code>kamel run --resource ..</code></p>
+<p>Update your <code>ArtemisIntegration.java</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the AMQ URL</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Scheme is now <code>amqps</code> (as opposed amqp), get the full url from <a href="01-setup.html" class="xref page">Setup chapter</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Configure trustStorePassword</p>
+</li>
+<li>
+<p>Configure trustStoreLocation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>TrustStoreLocation should match the value you are passing via <code>kamel run --resource</code> command</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Run your integration:</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --resource secret:my-artemis-secret@/etc/ssl/jms-sink ArtemisIntegration.java</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --resource secret:client-truststore@/etc/ssl/jms-sink ArtemisIntegration.java</code></pre>
 </div>
 </div>
 </div>
