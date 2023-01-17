@@ -121,6 +121,9 @@
 <p>OpenShift username/password: <code>user</code> / <code>password</code></p>
 </li>
 <li>
+<p>Gitea username/password: <code>userN</code> / <code>password</code> (N = [1..45])</p>
+</li>
+<li>
 <p>AMQ 7 Broker username/password: <code>admin</code> / <code>password1!</code></p>
 </li>
 <li>
@@ -157,7 +160,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route &lt;TODO&gt; -n tooling</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route devspaces -n tooling</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -169,7 +172,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route &lt;TODO&gt; -n tooling</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route rhte-camelk-gitea -n tooling</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -181,7 +184,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route &lt;TODO&gt; -n openshift-gitops</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route openshift-gitops-server -n openshift-gitops</code></pre>
 </div>
 </div>
 <nav class="pagination">
