@@ -107,9 +107,9 @@ oc get kamelet | wc -l
 </div>
 </div>
 <div class="paragraph">
-<p><code>Kamelets</code> are <strong>not as flexible</strong> as the camel components which they are
+<p>A single <code>Kamelet</code> is <strong>not as flexible</strong> as the camel components which they are
 based on. If the underlying camel component supports hundreds of
-parameters, the corresponding kamelet only expose a couple, chances are,
+parameters, the corresponding kamelet usually only expose a couple, chances are,
 the out of the box kamelet will not be directly useful at your customer
 or for your use case.</p>
 </div>
@@ -120,8 +120,8 @@ out of using them - by tailoring them precisely for your particular use
 case. And <strong>this is what we are going to do in the Lab 2.</strong></p>
 </div>
 <div class="paragraph">
-<p><code>Kamelets</code> can be <code>Sources</code> or <code>Sinks</code> and are connected throught
-<code>KameletBindings</code></p>
+<p><code>Kamelets</code> can be <code>Sources</code> or <code>Sinks</code> and can be connected throughout
+<code>KameletBindings</code>, but they can also be used in a camel-k integration or even in CSB or CEQ based deployments, which makes them very versatile.</p>
 </div>
 <div class="imageblock">
 <div class="content">
