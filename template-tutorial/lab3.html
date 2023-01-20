@@ -165,8 +165,9 @@ should already have secret containing <code>client.ts</code> available in
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd lab3/utils
-oc create secret generic my-artemis-secret --from-file=client.ts</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev &amp;&amp;
+cd utils &amp;&amp;
+oc create secret generic client-truststore --from-file=client.ts</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -253,7 +254,7 @@ appropriate bindings as per the Helm Diagram screenshot. There are
 scripts ready for you in <code>utils</code> to test the helm chart.</p>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete kamelet custom-jms-amqp-10-sink &amp;&amp;
 ./install.sh</code></pre>
 </div>
 </div>

@@ -137,7 +137,7 @@ default violated when using <code>kamel run</code>.</p>
 </div>
 <div class="listingblock lines_space">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel reset –namespace (deletes everything)
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel reset –namespace userN-dev (deletes everything)
 or
 oc delete ik</code></pre>
 </div>
@@ -152,8 +152,7 @@ in dev namespace:</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd lab4
-kamel run MutableIntegration.java --namespace userN-dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run MutableIntegration.java --namespace userN-dev</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -167,7 +166,8 @@ the name of the container image :</p>
 <div class="listingblock lines_space console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get it mutable-integration
-oc get ik</code></pre>
+
+oc get ik &lt;ik name&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -221,9 +221,10 @@ clusters.</p>
 fill in the blanks.</p>
 </div>
 <div class="paragraph">
-<p>We have prepared a <code>Tekton pipeline</code> for you which: - fetches the gitea
-repo - runs the camel-k integration - promotes it to production by
-utilizing <code>kamel promote</code></p>
+<p>We have prepared a <code>Tekton pipeline</code> for you which:
+* fetches the gitea repo
+* runs the camel-k integration
+* promotes it to production by utilizing <code>kamel promote</code></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -235,11 +236,18 @@ utilizing <code>kamel promote</code></p>
 <p><code>In a real world pipeline there would be some integration and smoke tests as well, but this is beyond the scope of this lab.</code></p>
 </div>
 <div class="paragraph">
-<p>Complete Lab4: - Examine <code>create-resources.sh</code> script, change it as needed and run it</p>
+<p><strong>Complete Lab4:</strong></p>
 </div>
-<div class="listingblock lines_space console-input">
+<div class="ulist">
+<ul>
+<li>
+<p>Examine <code>create-resources.sh</code> script, change it as needed and run it</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./create-resources.sh</code></pre>
+<pre>./create-resources.sh</pre>
 </div>
 </div>
 <div class="paragraph">

@@ -101,7 +101,8 @@
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userX-dev
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev
+
 oc get kamelet | wc -l
       202</code></pre>
 </div>
@@ -150,8 +151,8 @@ mechanics:</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev
-cd basic-auth
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir basic-auth &amp;&amp; cd basic-auth
+
 oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</code></pre>
 </div>
 </div>
@@ -270,7 +271,7 @@ Unfortunately RAW
 work</a> in the camel-k 1.8 operator version.</p>
 </div>
 <div class="paragraph">
-<p>So we need to get a bit more creative. Open the kamelet yaml again and add three more Kamelet parameters:</p>
+<p>So we need to get a bit more creative. <strong>Open your custom-jms-amqp-10-sink kamelet yaml again and add three more Kamelet parameters:</strong></p>
 </div>
 <div class="ulist">
 <ul>
@@ -295,7 +296,13 @@ work</a> in the camel-k 1.8 operator version.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>By defining the remoteURI query parameters directly in the Kamelet definition, we will bypass camel property parser which was causing the <code>trustStorePassword</code> param to be lost. After you are done, don&#8217;t forget to <code>oc apply -f</code> your kamelet changes to the cluster.</p>
+<p>By defining the remoteURI query parameters directly in the Kamelet definition, we will bypass camel property parser which was causing the <code>trustStorePassword</code> param to be lost.
+After you are done:</p>
+</div>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ../ssl &amp;&amp; oc apply -f custom-sink-kamelet.yaml</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Next we need to <strong>inject a client truststore</strong> into the integration pod:</p>
@@ -312,8 +319,7 @@ work</a> in the camel-k 1.8 operator version.</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ssl
-oc create secret generic client-truststore --from-file=client.ts</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic client-truststore --from-file=client.ts</code></pre>
 </div>
 </div>
 <div class="ulist">

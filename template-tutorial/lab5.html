@@ -129,8 +129,8 @@ execute it</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd labs/lab5
-./utils/cleanup.sh</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd utils &amp;&amp;
+./cleanup.sh</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -142,7 +142,7 @@ execute it</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./utils/create-secrets.sh</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./create-secrets.sh</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -208,6 +208,15 @@ oc get secret &lt;NAME OF THE SECRET&gt;</code></pre>
 as many bindings as needed, and don’t forget to adjust names and
 destinationNames so they match your group name.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git checkout -b dev</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Git commit and push your changes to the <code>dev</code> branch. The ArgoCD
 application is monitoring <code>dev</code> branch for changes and will apply them
@@ -219,9 +228,17 @@ namespace.</p>
 </li>
 <li>
 <p>When you are happy with the behavior of your integrations in the dev
-namespace, create a new branch based on dev
-<code>$ git checkout -b feature/my-first-prod-release origin/dev</code></p>
+namespace, create a new branch based on dev</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git checkout -b feature/my-first-prod-release origin/dev</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Modify <code>lab5/charts/prod/values.yaml</code> only. Copy bindings from <code>dev</code>
 environment but change destination name and userNamespace to point to
