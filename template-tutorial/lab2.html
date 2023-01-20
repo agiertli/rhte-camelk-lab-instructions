@@ -225,12 +225,17 @@ started pod in your namespace:</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">2022-12-01 21:29:52,693 INFO  [org.apa.qpi.jms.JmsConnection] (AmqpProvider :(1556):[amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672]) Connection ID:ef32e5da-b4a2-4172-bae8-50b0c03b216a:1556 connected to server: amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>You might see this error <code>Unable to verify existence of operator id [camel-k] due to lack of user privileges</code>. This is a known camel-k issue(<a href="https://github.com/apache/camel-k/issues/3996" class="bare">https://github.com/apache/camel-k/issues/3996</a>) which can safely be ignored</p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You might see this error <code>Unable to verify existence of operator id [camel-k] due to lack of user privileges</code>. This is a known <a href="https://github.com/apache/camel-k/issues/3996">camel-k issue</a> which can safely be ignored
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>2. Add one-way ssl</strong></p>
