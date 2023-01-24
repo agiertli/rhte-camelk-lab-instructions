@@ -129,18 +129,18 @@ Integration. This also greatly fits into today’s GitOps ways of working.</p>
 <div class="paragraph">
 <p>In this lab we will: - Turn our Java based integration into a Kamelet
 Binding. - Use <code>helm</code> to generate multiple Kamelet Bindings with ease. -
-Generate N bindings (where N is number of groups-1) to generate messages
-for every group in this lab. - Add one more binding which will simply
-read all the messages you as a group received.</p>
+Generate N bindings (where N is number of lab users) to generate messages
+for every user in this lab. - Add one more binding which will simply
+read all the messages you as a user received.</p>
 </div>
 <div class="paragraph">
 <p>The output of the helm chart should produce this:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/helm-chart-design.svg" alt="Helm chart design for Group1">
+<img src="_images/helm-chart-design.svg" alt="Helm chart design for User1">
 </div>
-<div class="title">Figure 1. Helm Chart design for Group1</div>
+<div class="title">Figure 1. Helm Chart design for User1</div>
 </div>
 <div class="paragraph">
 <p>The actual helm templates were already developed for you.</p>
@@ -268,18 +268,18 @@ scripts ready for you in <code>utils</code> to test the helm chart.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get klb -n userN-dev
 NAME                           PHASE   REPLICAS
-rhte-camelk.group1.to.group2   Ready   1
-rhte-camelk.group1.to.group3   Ready   1
-rhte-camelk.group1.to.group4   Ready   1
-rhte-camelk.group1.to.group5   Ready   1
-rhte-camelk.group1.to.group6   Ready   1
-rhte-camelk.group1.to.group7   Ready   1
-rhte-camelk.group1.to.log      Ready   1</code></pre>
+rhte-camelk.user1.to.user2   Ready   1
+rhte-camelk.user1.to.user3   Ready   1
+rhte-camelk.user1.to.user4   Ready   1
+rhte-camelk.user1.to.user5   Ready   1
+rhte-camelk.user1.to.user6   Ready   1
+rhte-camelk.user1.to.user7   Ready   1
+rhte-camelk.user1.to.log      Ready   1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The number of <code>groupN.to.groupM</code> bindings can differ based on the
-number of actual groups present in the lab. Don’t forget to check the
+<p>The number of <code>userN.to.userM</code> bindings can differ based on the
+number of actual users present in the lab. Don’t forget to check the
 integration logs to make sure there are no errors. You can use
 <code>kamel get</code> and <code>kamel log</code>, or plain <code>oc</code>.</p>
 </div>
