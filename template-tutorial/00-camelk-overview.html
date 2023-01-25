@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>camel-k crash course :: Red Hat Tech Exchange 2023</title>
+    <link rel="canonical" href="https://agiertli.github.io/rhte-camelk-lab-instructions/template-tutorial/index.html/template-tutorial/00-camelk-overview.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://agiertli.github.io/rhte-camelk-lab-instructions/template-tutorial/index.html">Red Hat Tech Exchange 2023</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="template-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-setup.html">0. Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab1.html">1. Lab 1 - Local Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab2.html">2. Lab 2 - Customizing Kamelets</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab3.html">3. Lab 3 - KameletBinding evolution</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab4.html">4. Lab 4 - Traditional CI/CD</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="lab5.html">5. Lab 5 - GitOps styled Continuous Delivery</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Template Tutorial</a></li>
+    <li><a href="00-camelk-overview.html">camel-k crash course</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/agiertli/rhte-camelk-lab-instructions/edit/main/documentation/modules/ROOT/pages/00-camelk-overview.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">camel-k crash course</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Feel free to skip this page if you are already an experienced camel-k hacker
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Please note this is not a definitive guide on camel-k. It&#8217;s merely an extract of selected camel-k parts useful in context of this lab. For complete camel-k guide refer to the <a href="https://camel.apache.org/docs/">official documentation</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture"><a class="anchor" href="#_architecture"></a>Architecture</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="_images/camel-k-high-level.svg" alt="Camel-K High Level Architecture">
+</div>
+<div class="title">Figure 1. Camel-K High Level Architecture</div>
+</div>
+<div class="paragraph">
+<p>While the diagram above can be somewhat overwhelming, from a developer perspective you are abstracted from vast majority of all these implementation details. They will of course come handy during troubleshooting or when satisfying general developer curiosity.</p>
+</div>
+<div class="paragraph">
+<p>The main parts of the camel-k platform are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>operator</p>
+</li>
+<li>
+<p>runtime</p>
+</li>
+<li>
+<p>traits</p>
+</li>
+<li>
+<p>tooling</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operator"><a class="anchor" href="#_operator"></a>Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Operator takes care of coordinating all the moving parts. Most importantly it takes care of translating Camel Integration (written mostly in java or yaml dsl by developers) into a running container image which includes Quarkus application with camel routes. It uses number of Customer Resources (CR) to achieve this. Here are some notable ones:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>IntegrationPlatform</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Controls the behavior of the operator. Allows to configure maven settings, based image for builds, container registry and many others.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Integration</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Describes the application by listing sources, resources, dependencies and by providing configuration options. This is the CR which gets created whenever you run <code>kamel run</code> and it is defacto the openshift native descriptor of an camel integration.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>IntegrationKit</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fundamental side resource which describes a container image created by the camel-k operator as well as the configurations that need to be applied to every integration that is executed on top of it. An IntegrationKit does not include any source code or resource file defined by the Integration from which it has been generated.</p>
+</li>
+<li>
+<p>Even though completely hidden, this is a crucial CR for developers. Whenever you submit an Integration to the cluster, camel-k operator will analyze  and maintain it&#8217;s dependencies. If there is an existing IntegrationKit CR which includes the same dependencies it will be automatically reused. This is one of the reason why camel-k offers such a good developer experience in the cloud environment - the hot redeploy feature works almost as good as in a traditional local dev environment. If you are submitting an Integration for the second time, and you are not changing its dependencies, but only source code, an already existing image (described by IntegrationKit) will be reused and the source code will be mounted via ConfigMap to the new pod. This means the subsequent Integration redeployments takes only couple of seconds instead of minutes!</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Kamelet (<strong>Kamel</strong> route snipp <strong>ets</strong> )</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fundamental unit of abstraction describing integration with external system via simplified interface. Kamelets may contain integration logic consisting of multiple complex steps but they are consumed via simplified interface. All the consumer of kamelets see is expected parameters, input and output. The complex integration logic is completely hidden away.</p>
+</li>
+<li>
+<p>Kamelet does not translate to a running Integration Application on its own. It&#8217;s only a descriptor. They can be used in KameletBinding, Integration, but (maybe surprisingly) even in "old school" Camel on Spring Boot and Camel Quarkus application.</p>
+</li>
+<li>
+<p>Kamelet can be of <strong>sink</strong> type which is used for sending data to external systems, or of <strong>source</strong> type which is used for consuming data from external systems.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>KameletBinding</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Resources which allows to use (or bind) Kamelets to various resources(systems), which includes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>KNative destination</p>
+</li>
+<li>
+<p>Kafka Topic</p>
+</li>
+<li>
+<p>Explicit URI (i.e. <a href="https://mycompany.com/the-service" class="bare">https://mycompany.com/the-service</a></p>
+</li>
+<li>
+<p>Another Kamelet</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime"><a class="anchor" href="#_runtime"></a>Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main purpose of the camel-k runtime is to launch a Camel Quarkus java application which contains camel routes configured by the user. It takes care of things like sources loading, properties setting, and many more. While the fact Quarkus is the target runtime platform can be considered as an implementation detail,  it&#8217;s useful to keep in mind that it allows for configuring certain aspects in the usual Quarkus-like way. For example, to enable debug logging for a specific logging category you could simply do <code>kamel run Integration.java -p quarkus.log.category."org.apache.kafka".level=DEBUG</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_traits"><a class="anchor" href="#_traits"></a>Traits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Traits are used to <em>tune</em> specific aspects of Integration. camel-k platform also uses traits to perform many common (but hidden) operations which are essential for running an Integration successfully. These are called <strong>platform traits</strong> and should never be disabled. The list of traits is constantly growing and can be found in the <a href="https://camel.apache.org/camel-k/1.11.x/traits/traits.html">documentation</a>. Examples could be <code>container</code>, <code>jvm</code>,<code>logging</code>,<code>kubernetes</code>, <code>tracing</code>, etc.
+Example usage:
+ <code>kamel run --trait container.limit-cpu=2 Integration.java</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cli"><a class="anchor" href="#_cli"></a>CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/apache/camel-k/releases"><code>kamel</code> CLI</a> is a fundamental part of the <code>camel-k</code> developer experience. It is the go-to tool for the early stages of camel-k development. It can also be easily embedded in your favourite CI tool such as Jenkins or Tekton to run <code>kamel run</code> or <code>kamel promote</code> operations. Note it is <em>really</em> important to make sure your version of <code>kamel</code> CLI is in sync with the camel-k operator version. This is because the product is evolving really quickly and breaking API/CRD changes are not so rare. In the out-of-sync scenarios it can happen that <code>kamel</code> will produce Integration CR which will be incompatible with the Integration CRD expected by the camel-k operator.</p>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
