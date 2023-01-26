@@ -168,7 +168,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <div class="ulist">
 <ul>
 <li>
-<p>Controls the behavior of the operator. Allows to configure maven settings, based image for builds, container registry and many others.</p>
+<p>Controls the behavior of the operator. Allows to configure maven settings, base image for builds, container registry and many others.</p>
 </li>
 </ul>
 </div>
@@ -178,7 +178,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <div class="ulist">
 <ul>
 <li>
-<p>Describes the application by listing sources, resources, dependencies and by providing configuration options. This is the CR which gets created whenever you run <code>kamel run</code> and it is defacto the openshift native descriptor of an camel integration.</p>
+<p>Describes the application by listing sources, resources, dependencies and by providing configuration options. This is the CR which gets created whenever you run <code>kamel run</code> and it is defacto the openshift native descriptor of a camel integration.</p>
 </li>
 </ul>
 </div>
@@ -191,7 +191,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <p>Fundamental side resource which describes a container image created by the camel-k operator as well as the configurations that need to be applied to every integration that is executed on top of it. An IntegrationKit does not include any source code or resource file defined by the Integration from which it has been generated.</p>
 </li>
 <li>
-<p>Even though completely hidden, this is a crucial CR for developers. Whenever you submit an Integration to the cluster, camel-k operator will analyze  and maintain it&#8217;s dependencies. If there is an existing IntegrationKit CR which includes the same dependencies it will be automatically reused. This is one of the reason why camel-k offers such a good developer experience in the cloud environment - the hot redeploy feature works almost as good as in a traditional local dev environment. If you are submitting an Integration for the second time, and you are not changing its dependencies, but only source code, an already existing image (described by IntegrationKit) will be reused and the source code will be mounted via ConfigMap to the new pod. This means the subsequent Integration redeployments takes only couple of seconds instead of minutes!</p>
+<p>Even though completely hidden, this is a crucial CR for developers. Whenever you submit an Integration to the cluster, camel-k operator will analyze it  and maintain it&#8217;s dependencies. If there is an existing IntegrationKit CR which includes the same dependencies it will be automatically reused. This is one of the reason why camel-k offers such a good developer experience in the cloud environment - the hot redeploy feature works almost as good as in a traditional local dev environment. If you are submitting an Integration for the second time, and you are not changing its dependencies, but only source code, an already existing image (described by IntegrationKit) will be reused and the source code will be mounted via ConfigMap to the new pod. This means the subsequent Integration redeployments takes only couple of seconds instead of minutes!</p>
 </li>
 </ul>
 </div>
@@ -201,7 +201,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <div class="ulist">
 <ul>
 <li>
-<p>Fundamental unit of abstraction describing integration with external system via simplified interface. Kamelets may contain integration logic consisting of multiple complex steps but they are consumed via simplified interface. All the consumer of kamelets see is expected parameters, input and output. The complex integration logic is completely hidden away.</p>
+<p>Fundamental unit of abstraction describing integration with external system via simplified interface. Kamelets may contain integration logic consisting of multiple complex steps but they are consumed via simplified interface. All the consumer of kamelets see is expected parameters, inputs and outputs. The complex integration logic is completely hidden away.</p>
 </li>
 <li>
 <p>Kamelet does not translate to a running Integration Application on its own. It&#8217;s only a descriptor. They can be used in KameletBinding, Integration, but (maybe surprisingly) even in "old school" Camel on Spring Boot and Camel Quarkus application.</p>
@@ -227,7 +227,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <p>Kafka Topic</p>
 </li>
 <li>
-<p>Explicit URI (i.e. <a href="https://mycompany.com/the-service" class="bare">https://mycompany.com/the-service</a></p>
+<p>Explicit URI (i.e. <a href="https://mycompany.com/the-service" class="bare">https://mycompany.com/the-service</a> )</p>
 </li>
 <li>
 <p>Another Kamelet</p>
@@ -246,7 +246,7 @@ Please note this is not a definitive guide on camel-k. It&#8217;s merely an extr
 <h2 id="_runtime"><a class="anchor" href="#_runtime"></a>Runtime</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The main purpose of the camel-k runtime is to launch a Camel Quarkus java application which contains camel routes configured by the user. It takes care of things like sources loading, properties setting, and many more. While the fact Quarkus is the target runtime platform can be considered as an implementation detail,  it&#8217;s useful to keep in mind that it allows for configuring certain aspects in the usual Quarkus-like way. For example, to enable debug logging for a specific logging category you could simply do <code>kamel run Integration.java -p quarkus.log.category."org.apache.kafka".level=DEBUG</code></p>
+<p>The main purpose of the camel-k runtime is to launch a Camel Quarkus java application which contains camel routes configured by the user. It takes care of things like sources loading, properties setting, and many more. While the fact Quarkus is the target runtime platform can be considered as an implementation detail,  it&#8217;s useful to keep in mind that it allows for configuring certain aspects in the usual Quarkus-like way. For example, to enable debug logging for a specific logging category you could simply do <code>kamel run Integration.java -p quarkus.log.category."org.apache.kafka".level=DEBUG</code> which is the identical property used in a standard Quarkus app as well.</p>
 </div>
 </div>
 </div>
