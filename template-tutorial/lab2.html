@@ -105,8 +105,7 @@
 <div class="listingblock console-output">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev
-
-oc get kamelet | wc -l
+oc get kamelet -n userN-dev| wc -l
       202</code></pre>
 </div>
 </div>
@@ -154,8 +153,8 @@ mechanics:</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir basic-auth &amp;&amp; cd basic-auth
-
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd labs/lab2
+mkdir basic-auth &amp;&amp; cd basic-auth
 oc get kamelet jms-amqp-10-sink -o yaml | oc neat &gt; custom-sink-kamelet.yaml</code></pre>
 </div>
 </div>
@@ -300,11 +299,11 @@ work</a> in the camel-k 1.8 operator version.</p>
 </div>
 <div class="paragraph">
 <p>By defining the remoteURI query parameters directly in the Kamelet definition, we will bypass camel property parser which was causing the <code>trustStorePassword</code> param to be lost.
-After you are done:</p>
+Apply your custom kamelet changes again:</p>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ../ssl &amp;&amp; oc apply -f custom-sink-kamelet.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f custom-sink-kamelet.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -316,13 +315,13 @@ After you are done:</p>
 <p>See file <code>client.ts</code> in your user git repository.<br></p>
 </li>
 <li>
-<p>Create a secret based on the contents of this file.</p>
+<p>Create a secret based on the contents of this file. The client trustStore can be found in <code>labs/lab2/ssl/</code> folder.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic client-truststore --from-file=client.ts</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create secret generic client-truststore --from-file=labs/lab2/ssl/client.ts</code></pre>
 </div>
 </div>
 <div class="ulist">

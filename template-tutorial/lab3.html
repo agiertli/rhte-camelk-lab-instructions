@@ -168,7 +168,8 @@ should already have secret containing <code>client.ts</code> available in
 </div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project userN-dev &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd labs/lab3
+oc project userN-dev &amp;&amp;
 cd utils &amp;&amp;
 oc create secret generic client-truststore --from-file=client.ts</code></pre>
 </div>
@@ -251,21 +252,33 @@ supplying helm values, and not to deal with the underlying templates
 </ul>
 </div>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Before you proceed to applying the helm chart, you need to delete the kamelet created in the previous lab, i.e.:</p>
+</div>
+<div class="listingblock lines_space console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete kamelet custom-jms-amqp-10-sink -n userN-dev</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Change <code>dev/values.yaml</code> in such a way that will create the
 appropriate bindings as per the Helm Diagram screenshot. There are
 scripts ready for you in <code>utils</code> to test the helm chart.</p>
+</li>
+</ul>
+</div>
 <div class="listingblock lines_space console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete kamelet custom-jms-amqp-10-sink &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd labs/lab3/utils &amp;&amp;
 ./install.sh</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The result should look similar to this:</p>
-</div>
-</li>
-</ul>
 </div>
 <div class="listingblock console-output">
 <div class="content">
