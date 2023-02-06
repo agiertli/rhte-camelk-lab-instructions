@@ -112,7 +112,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Most of the operators and utilities are installed in the <code>tooling</code> namespace to which every user has read access.  Here comes the list of all the useful information you need to know:</p>
+<p>Operators and utilities are installed in the separate  namespace to which every user has read access.  Here comes the list of all the useful information you need to know:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -123,7 +123,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"><a href="https://console-openshift-console.apps.cluster-rgpqb.rgpqb.sandbox3015.opentlc.com" class="bare">https://console-openshift-console.apps.cluster-rgpqb.rgpqb.sandbox3015.opentlc.com</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">&lt;TODO&gt;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -156,7 +156,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">amqp://rhte-artemis-no-ssl-0-svc.tooling.svc.cluster.local:5672</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">amqp://rhte-artemis-no-ssl-0-svc.amq.svc.cluster.local:5672</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -168,7 +168,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> amqps://rhte-artemis-one-way-ssl-0-svc.tooling.svc.cluster.local:5673</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> amqps://rhte-artemis-one-way-ssl-0-svc.amq.svc.cluster.local:5673</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -180,7 +180,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route devspaces -n tooling</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route devspaces -n devspaces</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -192,7 +192,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route rhte-camelk-gitea -n tooling</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> oc get route rhte-camelk-gitea -n gitea</code></pre>
 </div>
 </div>
 <div class="ulist">
